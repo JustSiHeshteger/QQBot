@@ -17,46 +17,12 @@ public class ButtonListener extends ListenerAdapter {
         event.deferEdit().queue();
         String id = event.getButton().getId();
 
-        /*for (var button: Utility.getButtons()) {
+        for (var button: Utility.getButtons()) {
             if (button.getId().equalsIgnoreCase(id)) {
                 try {
-                    button.onClick(event);
+                    button.onClickButton(event);
                 } catch (InputDataException ex) {
                     Utility.sendMessageEmbeds(event.getChannel().asTextChannel(), ex.getDescription(), Color.red);
-                }
-
-                break;
-            }
-        }*/
-
-        switch (id) {
-            case "play": {
-                try {
-                    Utility.checkAllData(event);;
-                } catch (InputDataException ex) {
-                    Utility.sendMessageEmbeds(event.getChannel().asTextChannel(), ex.getDescription(), Color.red);
-                }
-
-                final GuildMusicManager guildMusicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
-                final AudioPlayer audioPlayer = guildMusicManager.getPlayer();
-
-                if (audioPlayer.isPaused()) {
-                    audioPlayer.setPaused(false);
-                }
-                break;
-            }
-            case "pause": {
-                try {
-                    Utility.checkAllData(event);;
-                } catch (InputDataException ex) {
-                    Utility.sendMessageEmbeds(event.getChannel().asTextChannel(), ex.getDescription(), Color.red);
-                }
-
-                final GuildMusicManager guildMusicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
-                final AudioPlayer audioPlayer = guildMusicManager.getPlayer();
-
-                if (!audioPlayer.isPaused()) {
-                    audioPlayer.setPaused(true);
                 }
                 break;
             }

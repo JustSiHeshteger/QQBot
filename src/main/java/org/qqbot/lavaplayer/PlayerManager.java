@@ -46,15 +46,13 @@ public class PlayerManager {
                     firstTrack = playlist.getTracks().get(0);
                 }
 
-                channel.sendMessage("Добавка в очередь " +
-                        firstTrack.getInfo().title + " (первый в плейлисте " + playlist.getName() + ")").queue();
-
+                channel.sendMessage("Добавлено в очередь " + playlist.getName()).queue();
                 play(channel.getGuild(), musicManager, firstTrack, voiceChannel);
             }
 
             @Override
             public void noMatches() {
-                channel.sendMessage("Потерял ссылку по пути " + trackUrl).queue();
+                channel.sendMessage("Не смог найти " + trackUrl).queue();
             }
 
             @Override

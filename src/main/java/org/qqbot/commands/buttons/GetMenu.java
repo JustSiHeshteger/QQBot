@@ -3,6 +3,8 @@ package org.qqbot.commands.buttons;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import net.dv8tion.jda.internal.interactions.component.ButtonImpl;
 import org.qqbot.buttons.PlayButton;
 import org.qqbot.commands.basic.BaseCommand;
 import org.qqbot.lavaplayer.PlayerManager;
@@ -38,10 +40,6 @@ public class GetMenu implements BaseCommand {
             return;
         }
 
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle("Управление");
-
-        event.getChannel().asTextChannel().sendMessageEmbeds(embedBuilder.build())
-                .setActionRow(Utility.getButtons()).queue();
+        event.getChannel().asTextChannel().sendMessage("").setActionRow(Utility.getButtons()).queue();
     }
 }
