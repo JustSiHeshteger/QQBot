@@ -8,6 +8,7 @@ import net.dv8tion.jda.internal.interactions.component.ButtonImpl;
 import org.qqbot.buttons.PlayButton;
 import org.qqbot.commands.basic.BaseCommand;
 import org.qqbot.lavaplayer.PlayerManager;
+import org.qqbot.managers.ButtonsManager;
 import org.qqbot.utilities.Utility;
 
 import java.util.ArrayList;
@@ -40,6 +41,6 @@ public class GetMenu implements BaseCommand {
             return;
         }
 
-        event.getChannel().asTextChannel().sendMessage("").setActionRow(Utility.getButtons()).queue();
+        event.getChannel().asTextChannel().sendMessage("").setActionRow(ButtonsManager.getButtons()).queue();
     }
 }
