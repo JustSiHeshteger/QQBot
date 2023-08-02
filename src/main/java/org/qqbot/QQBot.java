@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.qqbot.listeners.ButtonsListener;
 import org.qqbot.listeners.CommandsListener;
+import org.qqbot.utilities.ActivityScheduler;
 
 import javax.security.auth.login.LoginException;
 import javax.sound.sampled.*;
@@ -45,6 +46,7 @@ public class QQBot {
 
         jda.addEventListener(new CommandsListener());
         jda.addEventListener(new ButtonsListener());
+        jda.addEventListener(new ActivityScheduler());
     }
     public static void main(String[] args) throws LineUnavailableException, IOException {
         try {

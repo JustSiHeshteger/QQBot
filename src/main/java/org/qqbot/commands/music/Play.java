@@ -60,6 +60,7 @@ public class Play implements BaseCommand {
 
         final VoiceChannel voiceChannel = memberState.getChannel().asVoiceChannel();
         PlayerManager.getInstance().loadAndPlay(textChannel, name, voiceChannel);
+
         event.getChannel().asTextChannel().sendMessage("").addActionRow(ButtonsManager.getButtons()).queue();
     }
 }

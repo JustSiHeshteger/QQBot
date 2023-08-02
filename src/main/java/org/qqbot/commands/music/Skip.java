@@ -47,9 +47,11 @@ public class Skip implements BaseCommand {
             return;
         }
 
-        if (musicManager.getScheduler().getQueue().size() > 0) {
+        if (musicManager.getScheduler().getQueue().size() == 0) {
+            musicManager.getScheduler().getPlayer().stopTrack();
+            musicManager.getScheduler().getQueue().clear();
+        } else {
             musicManager.getScheduler().nextTrack();
-            Utility.sendMessageEmbeds(textChannel, "Трек пропущен", Color.green);
         }
     }
 }

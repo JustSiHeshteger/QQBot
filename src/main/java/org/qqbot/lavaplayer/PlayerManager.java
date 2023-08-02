@@ -7,6 +7,7 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import lombok.Getter;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
@@ -14,10 +15,12 @@ import org.qqbot.utilities.Utility;
 
 import java.awt.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerManager {
     private static PlayerManager playerManager;
-    private final Map<Long, GuildMusicManager> musicManagers;
+    @Getter
+    private final Map<Guild, GuildMusicManager> musicManagers;
     private final AudioPlayerManager audioPlayerManager;
 
     private PlayerManager() {
@@ -25,7 +28,7 @@ public class PlayerManager {
         AudioSourceManagers.registerRemoteSources(this.audioPlayerManager);
         AudioSourceManagers.registerLocalSource(this.audioPlayerManager);
 
-        this.musicManagers = new HashMap<>();
+        this.musicManagers = new ConcurrentHashMap<>();
     }
 
     public void loadAndPlay(final TextChannel channel, final String trackUrl, final VoiceChannel voiceChannel) {
@@ -63,7 +66,7 @@ public class PlayerManager {
     }
 
     public GuildMusicManager getMusicManager(Guild guild) {
-        return this.musicManagers.computeIfAbsent(guild.getIdLong(), (Id) -> {
+        return this.musicManagers.computeIfAbsent(guild, (Id) -> {
            final GuildMusicManager guildMusicManager = new GuildMusicManager(audioPlayerManager);
            guild.getAudioManager().setSendingHandler(guildMusicManager.getSendHandler());
            return guildMusicManager;
