@@ -10,7 +10,7 @@ import org.qqbot.buttons.basic.AbstractButton;
 
 import java.util.List;
 
-public class ButtonManager {
+public class ButtonsManager {
     @Getter
     private static List<AbstractButton> buttons = List.of(
             new PauseButton("pause", "Pause", ButtonStyle.PRIMARY, false, null),

@@ -10,12 +10,10 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
-import net.dv8tion.jda.api.managers.AudioManager;
 import org.qqbot.utilities.Utility;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class PlayerManager {
     private static PlayerManager playerManager;
@@ -74,7 +72,6 @@ public class PlayerManager {
 
     private void play(Guild guild, GuildMusicManager musicManager, AudioTrack track, VoiceChannel voiceChannel) {
         guild.getAudioManager().openAudioConnection(voiceChannel);
-
         musicManager.getScheduler().queue(track);
     }
 

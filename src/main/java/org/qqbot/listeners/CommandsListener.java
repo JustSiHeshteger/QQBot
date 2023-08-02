@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import org.jetbrains.annotations.NotNull;
 import org.qqbot.exceptions.InputDataException;
-import org.qqbot.managers.CommandManager;
+import org.qqbot.managers.CommandsManager;
 import org.qqbot.utilities.Utility;
 
 import java.awt.*;
@@ -28,7 +28,7 @@ public class CommandsListener extends ListenerAdapter {
 
         String commandName = event.getName().toLowerCase();
 
-        for (var command: CommandManager.getCommands()) {
+        for (var command: CommandsManager.getCommands()) {
             if (commandName.equalsIgnoreCase(command.getName().toLowerCase())) {
                 try {
                     command.execute(event);
@@ -44,7 +44,7 @@ public class CommandsListener extends ListenerAdapter {
     public void onGuildReady(@NotNull GuildReadyEvent event) {
         List<CommandData> commandDataList = new ArrayList<>();
 
-        for (var command: CommandManager.getCommands()) {
+        for (var command: CommandsManager.getCommands()) {
             var data = Commands.slash(command.getName(), command.getDescription());
             for (var option: command.getOptionDataList()) {
                 data.addOptions(option);
@@ -54,5 +54,7 @@ public class CommandsListener extends ListenerAdapter {
 
         event.getGuild().updateCommands().addCommands(commandDataList).queue();
     }
+
+
 
 }

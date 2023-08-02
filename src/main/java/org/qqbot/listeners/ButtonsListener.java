@@ -1,24 +1,21 @@
 package org.qqbot.listeners;
 
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.qqbot.exceptions.InputDataException;
-import org.qqbot.lavaplayer.GuildMusicManager;
-import org.qqbot.lavaplayer.PlayerManager;
-import org.qqbot.managers.ButtonManager;
+import org.qqbot.managers.ButtonsManager;
 import org.qqbot.utilities.Utility;
 
 import java.awt.*;
 
-public class ButtonListener extends ListenerAdapter {
+public class ButtonsListener extends ListenerAdapter {
 
     @Override
     public void onButtonInteraction(ButtonInteractionEvent event) {
         event.deferEdit().queue();
         String id = event.getButton().getId();
 
-        for (var button: ButtonManager.getButtons()) {
+        for (var button: ButtonsManager.getButtons()) {
             if (button.getId().equalsIgnoreCase(id)) {
                 try {
                     button.onClickButton(event);

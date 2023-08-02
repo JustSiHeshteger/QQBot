@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.qqbot.commands.basic.BaseCommand;
 import org.qqbot.exceptions.InputDataException;
 import org.qqbot.lavaplayer.PlayerManager;
+import org.qqbot.managers.ButtonsManager;
 import org.qqbot.utilities.Utility;
 
 import java.util.ArrayList;
@@ -59,6 +60,6 @@ public class Play implements BaseCommand {
 
         final VoiceChannel voiceChannel = memberState.getChannel().asVoiceChannel();
         PlayerManager.getInstance().loadAndPlay(textChannel, name, voiceChannel);
-        event.getChannel().asTextChannel().sendMessage("").addActionRow(Utility.getButtons()).queue();
+        event.getChannel().asTextChannel().sendMessage("").addActionRow(ButtonsManager.getButtons()).queue();
     }
 }

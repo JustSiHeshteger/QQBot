@@ -7,7 +7,7 @@ import org.qqbot.commands.music.*;
 
 import java.util.List;
 
-public class CommandManager {
+public class CommandsManager {
     @Getter
     private static List<BaseCommand> commands = List.of(
             new Play(),
