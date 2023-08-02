@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.qqbot.exceptions.InputDataException;
 import org.qqbot.lavaplayer.GuildMusicManager;
 import org.qqbot.lavaplayer.PlayerManager;
+import org.qqbot.managers.ButtonManager;
 import org.qqbot.utilities.Utility;
 
 import java.awt.*;
@@ -17,7 +18,7 @@ public class ButtonListener extends ListenerAdapter {
         event.deferEdit().queue();
         String id = event.getButton().getId();
 
-        for (var button: Utility.getButtons()) {
+        for (var button: ButtonManager.getButtons()) {
             if (button.getId().equalsIgnoreCase(id)) {
                 try {
                     button.onClickButton(event);
