@@ -17,7 +17,9 @@ public class CommandsListener extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        event.deferReply(true).queue();
+        event.deferReply(true).queue(interaction -> {
+            interaction.deleteOriginal().queue();
+        });
 
         if (!event.isGuildCommand()) {
             return;

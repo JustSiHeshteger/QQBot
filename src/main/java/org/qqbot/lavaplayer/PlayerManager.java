@@ -11,7 +11,9 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.managers.AudioManager;
+import org.qqbot.utilities.Utility;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +36,7 @@ public class PlayerManager {
         this.audioPlayerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack track) {
-                channel.sendMessage("Добавка произошла " + track.getInfo().title).queue();
+                Utility.sendMessageEmbeds(channel, "Добавил в очередь " + track.getInfo().title, Color.green);
                 play(channel.getGuild(), musicManager, track, voiceChannel);
             }
 
@@ -46,18 +48,18 @@ public class PlayerManager {
                     firstTrack = playlist.getTracks().get(0);
                 }
 
-                channel.sendMessage("Добавлено в очередь " + playlist.getName()).queue();
+                Utility.sendMessageEmbeds(channel, "Добавил в очередь " + playlist.getName(), Color.green);
                 play(channel.getGuild(), musicManager, firstTrack, voiceChannel);
             }
 
             @Override
             public void noMatches() {
-                channel.sendMessage("Не смог найти " + trackUrl).queue();
+                Utility.sendMessageEmbeds(channel, "Не смог найти " + trackUrl, Color.red);
             }
 
             @Override
             public void loadFailed(FriendlyException exception) {
-                channel.sendMessage("Не осилил загрузку :( " + exception.getMessage()).queue();
+                Utility.sendMessageEmbeds(channel, "Не осилил загрузку :( " + exception.getMessage(), Color.red);
             }
         });
     }
@@ -71,19 +73,9 @@ public class PlayerManager {
     }
 
     private void play(Guild guild, GuildMusicManager musicManager, AudioTrack track, VoiceChannel voiceChannel) {
-        //connectToFirstVoiceChannel(guild.getAudioManager());
         guild.getAudioManager().openAudioConnection(voiceChannel);
 
         musicManager.getScheduler().queue(track);
-    }
-
-    private static void connectToFirstVoiceChannel(AudioManager audioManager) {
-        if (!audioManager.isConnected()) {
-            for (VoiceChannel voiceChannel : audioManager.getGuild().getVoiceChannels()) {
-                audioManager.openAudioConnection(voiceChannel);
-                break;
-            }
-        }
     }
 
     public static PlayerManager getInstance() {
